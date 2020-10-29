@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Npgg.ConsoleTable", "Npgg.ConsoleTable\Npgg.ConsoleTable.csproj", "{005B11DC-59E1-4C33-B8AB-9F952B466FF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Npgg.ConsoleTable", "Npgg.ConsoleTable\Npgg.ConsoleTable.csproj", "{005B11DC-59E1-4C33-B8AB-9F952B466FF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Npgg.ConsoleTable.Tests", "Npgg.ConsoleTable.Tests\Npgg.ConsoleTable.Tests.csproj", "{D9840424-5D1B-4081-BCEA-A61BF63AD6F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Npgg.ConsoleTable.Tests", "Npgg.ConsoleTable.Tests\Npgg.ConsoleTable.Tests.csproj", "{D9840424-5D1B-4081-BCEA-A61BF63AD6F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example", "Example\Example.csproj", "{CE908647-FEDD-45A0-AF58-DF8C96FA0CF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D9840424-5D1B-4081-BCEA-A61BF63AD6F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9840424-5D1B-4081-BCEA-A61BF63AD6F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9840424-5D1B-4081-BCEA-A61BF63AD6F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE908647-FEDD-45A0-AF58-DF8C96FA0CF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE908647-FEDD-45A0-AF58-DF8C96FA0CF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE908647-FEDD-45A0-AF58-DF8C96FA0CF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE908647-FEDD-45A0-AF58-DF8C96FA0CF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,6 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/Newp/Npgg.ConsoleTable</RepositoryUrl>
+    <Description>콘솔창에 테이블 형태의 출력을 지원합니다.</Description>
+    <Authors>Newp</Authors>
+    <Copyright />
   </PropertyGroup>
 
 </Project>
