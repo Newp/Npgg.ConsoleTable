@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Xunit;
 
-namespace Npgg.ConsoleTable.Tests
+namespace Npgg.ConsoleTableTests
 {
     public class AssignerTest
     {

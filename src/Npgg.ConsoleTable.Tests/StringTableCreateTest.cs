@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 
-namespace Npgg.ConsoleTable.Tests
+namespace Npgg.ConsoleTableTests
 {
     public class StringTableCreateTest
     {
@@ -24,10 +25,6 @@ namespace Npgg.ConsoleTable.Tests
             public DateTime RegisterTime { get; set; }
         }
 
-        public StringTableCreateTest()
-        {
-            
-        }
         List<Sample> list = new List<Sample>(new[]{
                 new Sample(1, "재훈", "첫빠", new DateTime(2020,10,29)),
                 new Sample(2, "초코파이 찰떡", "맛있음", new DateTime(2020,10,30)),
@@ -39,9 +36,13 @@ namespace Npgg.ConsoleTable.Tests
             });
 
         [Fact]
-        public void Test()
+        public void LineCountTest()
         {
             var table = ConsoleTable.Create(list);
+
+            //4 = top+column+mid+bottom line
+            Assert.Equal(list.Count + 4, table.Split('\n').Length);
         }
+
     }
 }

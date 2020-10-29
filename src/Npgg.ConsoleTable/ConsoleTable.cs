@@ -46,6 +46,7 @@ namespace Npgg
             }
 
             drawHorizontalLine();//==============================================
+            sb.Length--;
             return sb.ToString();
         }
     }
