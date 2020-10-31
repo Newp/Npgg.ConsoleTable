@@ -2,3 +2,37 @@
 
 https://www.nuget.org/packages/Npgg.ConsoleTable/1.0.0
 
+
+### 특징
+1. Reflection 을 이용하여 자동으로 테이블을 그립니다.
+2. 한글/영문/특수문자에서도 깨지지 않고 똑바로 그립니다.
+3. 패턴매칭이나 대리자를 사용하여 원하는 Row에 원하는 색을 지정할 수 있습니다.
+
+
+### Exmaple
+
+```csharp
+
+var items = new[]
+{
+    new Item(){ Name= "Leoric's Crown", Rarity = Rarity.Normal, Slot ="Helm"},
+    new Item(){ Name= "Thunderfury", Rarity = Rarity.Unique, Slot ="One Handed Weapon"},
+    new Item(){ Name= "할배검 the grandfather", Rarity = Rarity.Legendary, Slot ="Two Handed Weapon"},
+    new Item(){ Name= "WINDFORCE", Rarity = Rarity.Magic, Slot ="양손무기"},
+};
+
+ConsoleTable.Write(items, item => item.Rarity switch
+{
+    Rarity.Magic => ConsoleColor.DarkCyan,
+    Rarity.Unique => ConsoleColor.DarkMagenta,
+    Rarity.Legendary => ConsoleColor.DarkYellow,
+    _ => ConsoleColor.White
+});
+
+```
+
+### 결과
+![image](https://user-images.githubusercontent.com/2803110/97784813-7b4bf100-1be4-11eb-9603-d80b22e394e7.png)
+
+### 다양한 폰트에서도 문제없이 동작
+![image](https://user-images.githubusercontent.com/2803110/97784938-763b7180-1be5-11eb-90dc-829f575dc6d1.png)
