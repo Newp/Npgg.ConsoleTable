@@ -35,14 +35,14 @@ namespace Npgg.ConsoleTableTests
 
             });
 
-        [Fact]
-        public void LineCountTest()
-        {
-            var table = ConsoleTable.Create(list);
+        //[Fact]
+        //public void LineCountTest()
+        //{
+        //    var table = ConsoleTable.Create(list);
 
-            //4 = top+column+mid+bottom line
-            Assert.Equal(list.Count + 4, table.Split('\n').Length);
-        }
+        //    //4 = top+column+mid+bottom line
+        //    Assert.Equal(list.Count + 4, table.Split('\n').Length);
+        //}
 
     }
 }
