@@ -36,3 +36,30 @@ ConsoleTable.Write(items, item => item.Rarity switch
 
 ### 다양한 폰트에서도 문제없이 동작
 ![image](https://user-images.githubusercontent.com/2803110/97784938-763b7180-1be5-11eb-90dc-829f575dc6d1.png)
+
+
+### 출력을 원한다면?
+
+```csharp
+    var items = new[]
+    {
+        new Item(){ Name= "Leoric's Crown", Rarity = Rarity.Normal, Slot ="Helm"},
+        new Item(){ Name= "Thunderfury", Rarity = Rarity.Unique, Slot ="One Handed Weapon"},
+        new Item(){ Name= "할배검 the grandfather", Rarity = Rarity.Legendary, Slot ="Two Handed Weapon"},
+        new Item(){ Name= "WINDFORCE", Rarity = Rarity.Magic, Slot ="양손무기"},
+    };
+
+
+    ConsoleTable.Write(items);
+```
+
+### 색상 설정
+
+```csharp
+    ConsoleTable.TableColor = ConsoleColor.Red; //테이블 색깔을 지정합니다.
+    ConsoleTable.ColumnColor = ConsoleColor.Cyan; //Column에 들어가는 Text 색상을 지정합니다.
+    ConsoleTable.RowColor = ConsoleColor.White; //Row의 색상을 지정합니다. 단, 대리자를 이용한 색상 지정일 경우에는 동작하지 않습니다.
+```
+
+### 
+![image](https://user-images.githubusercontent.com/2803110/97785181-c5ce6d00-1be6-11eb-8801-4530b05eea8a.png)
