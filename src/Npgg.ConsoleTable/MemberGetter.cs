@@ -37,12 +37,7 @@ namespace Npgg
 
         private readonly Func<object, object> getter;
 
-        private readonly Action<object, object> setter;
-
-
         public object GetValue(object targetObject) => getter(targetObject);
-
-        public void SetValue(object targetObject, object memberValue) => setter(targetObject, memberValue);
 
         public readonly Type DeclaringType;
         public readonly Type ValueType;

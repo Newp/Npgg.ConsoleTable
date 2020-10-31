@@ -8,6 +8,8 @@ using System.Text;
 
 namespace Npgg
 {
+    public delegate ConsoleColor ColorSelector<T>(T item);
+
     public static class ConsoleTable
     {
 
@@ -17,51 +19,28 @@ namespace Npgg
             return length;
         }
 
-        class Column
+        public static void Write<T>(IEnumerable<T> list, ColorSelector<T> colorSelector)
         {
-            public int index;
-            public string name;
-            public int width;
-            public string[] values;
-        }
-
-        public static void Write<T>(IEnumerable<T> list, Func<T, ConsoleColor> rowColorSelector)
-        {
-            var ps = typeof(T).GetProperties();
+            var properties = typeof(T).GetProperties();
 
             var assigners = MemberGetter.GetAssigners<T>();
 
-            var columns = new List<Column>();
+            var columns = assigners.Values.Select((assigner, i) => 
+                new ConsoleColumn(i, assigner.MemberName, list.Select(item => assigner.GetValue(item).ToString()))
+            );
 
-            int idx = 0;
-            foreach (var assigner in assigners.Values)
-            {
-                string key = assigner.MemberName;
-                var values = list.Select(item => assigner.GetValue(item).ToString());
-
-                int maxLength = Math.Max(key.Length, values.Max(text => GetTextWidth( text) ));
-
-                columns.Add(new Column()
-                {
-                    index = idx++,
-                    name = key,
-                    width = maxLength,
-                    values = values.ToArray()
-                }) ;
-            }
-
-            var totalWidth = columns.Sum(column => column.width);
+            var totalWidth = columns.Sum(column => column.Width);
 
             WriteLine(columns);
 
-            WriteColumn(columns, ConsoleColor.Yellow, col => col.name);
+            WriteRow(columns, ConsoleColor.Yellow, col => col.Name);
 
             WriteLine(columns);
 
             for (int i = 0; i < list.Count(); i++)
             {
-                var color = rowColorSelector(list.ElementAt(i));
-                WriteRow(columns, color, col => col.values[i]);
+                var color = colorSelector(list.ElementAt(i));
+                WriteRow(columns, color, col => col.Values[i]);
             }
 
 
@@ -72,27 +51,15 @@ namespace Npgg
         static readonly string cc = " | ";
 
         static readonly ConsoleColor tableColor = ConsoleColor.Cyan;
-        static void WriteColumn(List<Column> columns, ConsoleColor color, Func<Column, string> selector)
-        {
-            foreach (var column in columns)
-            {
-                WriteWord(tableColor, 3, cc);
-                var value = selector(column);
-                WriteWord(color, column.width, value);
-            }
 
-            WriteWord(tableColor, 3, cc);
-            Console.WriteLine();
-        }
-
-        static void WriteLine(List<Column> columns)
+        static void WriteLine(IEnumerable<ConsoleColumn> columns)
         {
             var spliter = " +-";
             foreach (var column in columns)
             {
                 WriteWord(tableColor, 3, spliter);
-                var value = string.Empty.PadLeft(column.width, '-');
-                WriteWord(tableColor, column.width, value);
+                var value = string.Empty.PadLeft(column.Width, '-');
+                WriteWord(tableColor, column.Width, value);
                 spliter = "-+-";
             }
 
@@ -100,19 +67,19 @@ namespace Npgg
             Console.WriteLine();
         }
 
-        static void WriteRow(List<Column> columns, ConsoleColor color, Func<Column, string> selector)
+        static void WriteRow(IEnumerable<ConsoleColumn> columns, ConsoleColor color, Func<ConsoleColumn, string> textSelector)
         {
             foreach (var column in columns)
             {
                 WriteWord(tableColor, 3, cc);
-                var value = selector(column);
+                var value = textSelector(column);
 
                 var len1 = GetTextWidth(value);
                 var len2 = value.Length;
 
                 var diff = len1 - len2;
 
-                WriteWord(color, column.width - diff, value);
+                WriteWord(color, column.Width - diff, value);
             }
             WriteWord(tableColor, 3, cc);
             Console.WriteLine();
@@ -128,56 +95,6 @@ namespace Npgg
             Console.Write(format, value);
 
             Console.ResetColor();
-        }
-        //public static void Write<T>(IEnumerable<T> list) => Console.WriteLine(Create(list));
-
-        //public static string Create<T>(IEnumerable<T> list)
-        //{
-        //    var ps = typeof(T).GetProperties();
-
-        //    var assigners = MemberGetter.GetAssigners<T>();
-
-        //    var readyList = new List<(int index, string name, int length, string[] values)>();
-
-        //    int idx = 0;
-        //    foreach (var assigner in assigners.Values)
-        //    {
-        //        string key = assigner.MemberName;
-        //        var values = list.Select(item => assigner.GetValue(item).ToString());
-        //        int maxLength = Math.Max(key.Length, values.Max(item => item.Length));
-
-        //        readyList.Add((idx++, key, maxLength, values.ToArray()));
-        //    }
-
-        //    StringBuilder sb = new StringBuilder();
-        //    var cc = " | ";
-        //    var lineFormat = cc + string.Join(cc, readyList.Select(item => $"{{{item.index},{item.length}}}")) + cc;
-
-        //    var drawHorizontalLine = new Action(() => sb.AppendFormat(lineFormat, readyList.Select(item => "".PadLeft(item.length, '=')).ToArray()).AppendLine());
-
-        //    drawHorizontalLine();//==============================================
-
-        //    sb.AppendFormat(lineFormat, readyList.Select(item => item.name).ToArray()).AppendLine();
-
-        //    drawHorizontalLine();//==============================================
-
-        //    for (int i = 0; i < list.Count(); i++)
-        //    {
-        //        var rowValues = readyList.Select(item => item.values[i].ToString());
-        //        sb.AppendFormat(lineFormat, rowValues.ToArray()).AppendLine();
-        //    }
-
-        //    drawHorizontalLine();//==============================================
-        //    sb.Length--;
-        //    return sb.ToString();
-        //}
-
-        class Builder
-        {
-            StringBuilder sb = new StringBuilder();
-            public string format { get; set; }
-            
-
         }
     }
 }
