@@ -16,6 +16,7 @@ namespace Example
         static void Main(string[] args)
         {
             var peoples = new[]{
+                new People() { Name = "에스텔 브라이트", Age = 16, Job = "유격사"},
                 new People() { Name = "John", Age = 16, Job = "Sailer"},
                 new People() { Name = "Newp Lee", Age = 36, Job = "baeksoo" },
                 new People() { Name = "Hatsune Miku", Age = 10, Job = "Singer" },

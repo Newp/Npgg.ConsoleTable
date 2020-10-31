@@ -39,7 +39,7 @@ namespace Npgg
                 string key = assigner.MemberName;
                 var values = list.Select(item => assigner.GetValue(item).ToString());
 
-                int maxLength = Math.Max(key.Length, values.Max(item => item.Length));
+                int maxLength = Math.Max(key.Length, values.Max(text => GetTextWidth( text) ));
 
                 columns.Add(new Column()
                 {
@@ -106,7 +106,13 @@ namespace Npgg
             {
                 WriteWord(tableColor, 3, cc);
                 var value = selector(column);
-                WriteWord(color, column.width, value);
+
+                var len1 = GetTextWidth(value);
+                var len2 = value.Length;
+
+                var diff = len1 - len2;
+
+                WriteWord(color, column.width - diff, value);
             }
             WriteWord(tableColor, 3, cc);
             Console.WriteLine();
