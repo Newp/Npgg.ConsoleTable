@@ -11,6 +11,12 @@ namespace Npgg
     public static class ConsoleTable
     {
 
+        public static int GetTextWidth(string value)
+        {
+            var length = value.ToCharArray().Sum(c => c > 127 ? 2 : 1);
+            return length;
+        }
+
         class Column
         {
             public int index;
@@ -44,8 +50,6 @@ namespace Npgg
                 }) ;
             }
 
-
-
             var totalWidth = columns.Sum(column => column.width);
 
             WriteLine(columns);
@@ -72,12 +76,12 @@ namespace Npgg
         {
             foreach (var column in columns)
             {
-                Write(tableColor, 3, cc);
+                WriteWord(tableColor, 3, cc);
                 var value = selector(column);
-                Write(color, column.width, value);
+                WriteWord(color, column.width, value);
             }
 
-            Write(tableColor, 3, cc);
+            WriteWord(tableColor, 3, cc);
             Console.WriteLine();
         }
 
@@ -86,13 +90,13 @@ namespace Npgg
             var spliter = " +-";
             foreach (var column in columns)
             {
-                Write(tableColor, 3, spliter);
+                WriteWord(tableColor, 3, spliter);
                 var value = string.Empty.PadLeft(column.width, '-');
-                Write(tableColor, column.width, value);
+                WriteWord(tableColor, column.width, value);
                 spliter = "-+-";
             }
 
-            Write(tableColor, 3, "-+ ");
+            WriteWord(tableColor, 3, "-+ ");
             Console.WriteLine();
         }
 
@@ -100,16 +104,16 @@ namespace Npgg
         {
             foreach (var column in columns)
             {
-                Write(tableColor, 3, cc);
+                WriteWord(tableColor, 3, cc);
                 var value = selector(column);
-                Write(color, column.width, value);
+                WriteWord(color, column.width, value);
             }
-            Write(tableColor, 3, cc);
+            WriteWord(tableColor, 3, cc);
             Console.WriteLine();
         }
 
 
-        static void Write(ConsoleColor consoleColor, int width, string value)
+        static void WriteWord(ConsoleColor consoleColor, int width, string value)
         {
             Console.ForegroundColor = consoleColor;
             
