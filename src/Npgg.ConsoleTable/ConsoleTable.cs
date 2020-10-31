@@ -19,6 +19,8 @@ namespace Npgg
             return length;
         }
 
+        public static void Write<T>(IEnumerable<T> list) => Write(list, item => RowColor);
+
         public static void Write<T>(IEnumerable<T> list, ColorSelector<T> colorSelector)
         {
             var properties = typeof(T).GetProperties();
@@ -50,20 +52,33 @@ namespace Npgg
 
         static readonly string cc = " | ";
 
-        static readonly ConsoleColor tableColor = ConsoleColor.Cyan;
+        /// <summary>
+        /// 테이블 색깔을 지정합니다.
+        /// </summary>
+        public static ConsoleColor TableColor = ConsoleColor.Cyan;
+
+        /// <summary>
+        /// 단, 대리자를 이용한 색상 지정일 경우에는 동작하지 않습니다.
+        /// </summary>
+        public static ConsoleColor RowColor = ConsoleColor.Gray;
+
+        /// <summary>
+        /// Column에 들어가는 Text 색상을 지정합니다.
+        /// </summary>
+        public static ConsoleColor ColumnColor = ConsoleColor.Yellow;
 
         static void WriteLine(IEnumerable<ConsoleColumn> columns)
         {
             var spliter = " +-";
             foreach (var column in columns)
             {
-                WriteWord(tableColor, 3, spliter);
+                WriteWord(TableColor, 3, spliter);
                 var value = string.Empty.PadLeft(column.Width, '-');
-                WriteWord(tableColor, column.Width, value);
+                WriteWord(TableColor, column.Width, value);
                 spliter = "-+-";
             }
 
-            WriteWord(tableColor, 3, "-+ ");
+            WriteWord(TableColor, 3, "-+ ");
             Console.WriteLine();
         }
 
@@ -71,7 +86,7 @@ namespace Npgg
         {
             foreach (var column in columns)
             {
-                WriteWord(tableColor, 3, cc);
+                WriteWord(TableColor, 3, cc);
                 var value = textSelector(column);
 
                 var len1 = GetTextWidth(value);
@@ -81,7 +96,7 @@ namespace Npgg
 
                 WriteWord(color, column.Width - diff, value);
             }
-            WriteWord(tableColor, 3, cc);
+            WriteWord(TableColor, 3, cc);
             Console.WriteLine();
         }
 

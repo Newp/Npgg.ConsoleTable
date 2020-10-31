@@ -6,35 +6,46 @@ namespace Example
     class Program
     {
 
-        class People
+        class Item
         {
             public string Name { get; set; }
-            public int Age { get; set; }
-            public string Job { get; set; }
+            public Rarity Rarity { get; set; }
+            public string Slot { get; set; }
+        }
+
+        enum Rarity
+        {
+            Normal,
+            Magic,
+            Unique,
+            Legendary,
         }
 
         static void Main(string[] args)
         {
-            var peoples = new[]{
-                new People() { Name = "에스텔 브라이트", Age = 16, Job = "유격사"},
-                new People() { Name = "John", Age = 16, Job = "Sailer"},
-                new People() { Name = "Newp Lee", Age = 36, Job = "baeksoo" },
-                new People() { Name = "Hatsune Miku", Age = 10, Job = "Singer" },
+            var items = new[]
+            {
+                new Item(){ Name= "Leoric's Crown", Rarity = Rarity.Normal, Slot ="Helm"},
+                new Item(){ Name= "Thunderfury", Rarity = Rarity.Unique, Slot ="One Handed Weapon"},
+                new Item(){ Name= "할배검 the grandfather", Rarity = Rarity.Legendary, Slot ="Two Handed Weapon"},
+                new Item(){ Name= "WINDFORCE", Rarity = Rarity.Magic, Slot ="양손무기"},
             };
 
-            //var peoples = new[]{
-            //    new People() { Name = "에스텔 브라이트", Age = 16, Job = "유격사"},
-            //    new People() { Name = "브라이트 노아", Age = 45, Job = "함장"},
-            //    new People() { Name = "Newp Lee", Age = 36, Job = "무직" },
-            //    new People() { Name = "", Age = 36, Job = "무직" },
-            //};
-
-            ConsoleTable.Write(peoples, people=> {
-                if (people.Age > 30)
-                    return ConsoleColor.Red;
-                else
-                    return ConsoleColor.Green;
+            #region ColorByRarity
+            ConsoleTable.Write(items, item => item.Rarity switch
+            {
+                Rarity.Magic => ConsoleColor.DarkCyan,
+                Rarity.Unique => ConsoleColor.DarkMagenta,
+                Rarity.Legendary => ConsoleColor.DarkYellow,
+                _ => ConsoleColor.White
             });
+            #endregion
+
+            ConsoleTable.TableColor = ConsoleColor.Red;
+            ConsoleTable.ColumnColor = ConsoleColor.Cyan;
+            ConsoleTable.RowColor = ConsoleColor.White;
+
+            ConsoleTable.Write(items);
         }
     }
 }

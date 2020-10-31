@@ -38,7 +38,7 @@ ConsoleTable.Write(items, item => item.Rarity switch
 ![image](https://user-images.githubusercontent.com/2803110/97784938-763b7180-1be5-11eb-90dc-829f575dc6d1.png)
 
 
-### 출력을 원한다면?
+### 간단하게 출력하고 싶다면?
 
 ```csharp
     var items = new[]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Xunit;
 
 namespace Npgg.ConsoleTableTests
@@ -31,8 +32,15 @@ namespace Npgg.ConsoleTableTests
                 new Sample(4, "모니터", "너무비쌈", new DateTime(2020,11,5)),
                 new Sample(5, "3080", "팔지도 않는다..", new DateTime(2020,11,5)),
                 new Sample(6, "사무실 이사", "안갔으면", new DateTime(2020,11,5)),
-
             });
+
+        readonly MemberInfo[] memberInfos;
+        public UnitTests()
+        {
+            this.memberInfos = typeof(Sample).GetMembers()
+                .Where(mem => mem.MemberType == System.Reflection.MemberTypes.Property
+                    || mem.MemberType == System.Reflection.MemberTypes.Field).ToArray();
+        }
 
         public string Write<T>(IEnumerable<T> list) => Write<T>(list, item => ConsoleColor.White);
 
@@ -70,18 +78,15 @@ namespace Npgg.ConsoleTableTests
             var raw = reader.ReadLine();
             var column = splite(raw);
 
-            var members = typeof(Sample).GetMembers()
-                .Where(mem => mem.MemberType == System.Reflection.MemberTypes.Property
-                    || mem.MemberType == System.Reflection.MemberTypes.Field).ToArray();
 
-
-            Assert.Equal(members.Length, column.Length);
+            Assert.Equal(this.memberInfos.Length, column.Length);
 
             for (int i = 0; i < column.Length; i++)
             {
-                Assert.Equal(members[i].Name, column[i]);
+                Assert.Equal(this.memberInfos[i].Name, column[i]);
             }
         }
+
 
         string[] splite(string line) => line.Split("|").Select(text => text.Trim()).Where(text => string.IsNullOrEmpty(text) == false).ToArray();
 
