@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Transactions;
 using Xunit;
 
 namespace Npgg.ConsoleTableTests
@@ -42,16 +43,14 @@ namespace Npgg.ConsoleTableTests
                     || mem.MemberType == System.Reflection.MemberTypes.Field).ToArray();
         }
 
-        public string Write<T>(IEnumerable<T> list) => Write<T>(list, item => ConsoleColor.White);
-
-        public string Write<T>(IEnumerable<T> list, ColorSelector<T> colorSelector)
+        public string Write(Action action)
         {
             var stdout = Console.Out;
 
             MockConsole mockConsole = new MockConsole();
 
             Console.SetOut(mockConsole);
-            ConsoleTable.Write(list, colorSelector);
+            action();
             Console.SetOut(stdout);
 
             return mockConsole.Read();
@@ -60,7 +59,7 @@ namespace Npgg.ConsoleTableTests
         [Fact]
         public void LineCountTest()
         {
-            var result = this.Write(list);
+            var result = Write(() => ConsoleTable.Write(list, item => ConsoleColor.White));
 
             //line 3+ column 1 + newline 1
             Assert.Equal(list.Count + 5, result.Split('\n').Length);
@@ -70,7 +69,7 @@ namespace Npgg.ConsoleTableTests
         [Fact]
         public void ColumnTest()
         {
-            var result = this.Write(list);
+            var result = Write(() => ConsoleTable.Write(list, item => ConsoleColor.White));
 
             //line 3+ column 1 + newline 1
             StringReader reader = new StringReader(result);
@@ -103,6 +102,40 @@ namespace Npgg.ConsoleTableTests
             var actualLength = ConsoleTable.GetTextWidth(value);
 
             Assert.Equal(expectLength, actualLength);
+        }
+
+
+        [Fact]
+        public void SingleWriteTest()
+        {
+            var sample = new Sample(10, "name_value", "message_value", new DateTime(2020, 10, 30));
+
+            var result = Write(() => ConsoleTable.WriteSingle(sample));
+
+            using var reader = new StringReader(result);
+
+            reader.ReadLine();
+
+
+            foreach(var assginer in MemberGetter.GetAssigners(typeof(Sample)).Values)
+            {
+                var text = reader.ReadLine();
+
+                var values = text.Split('|').Select(value => value.Trim()).ToArray();
+
+                Assert.Equal(4, values.Length); // 왼쪽 공백+오른쪽공백
+
+                Assert.Equal(0, values[0].Length);
+
+                Assert.Equal(assginer.MemberName, values[1]);
+                Assert.Equal(assginer.GetValue(sample).ToString(), values[2]);
+
+                Assert.Equal(0, values[3].Length);
+
+
+                reader.ReadLine();
+            }
+            
         }
     }
 }
