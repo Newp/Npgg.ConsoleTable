@@ -1,6 +1,5 @@
 # Npgg.ConsoleTable
-
-https://www.nuget.org/packages/Npgg.ConsoleTable/1.0.0
+https://www.nuget.org/packages/Npgg.ConsoleTable/
 
 
 ### 특징
@@ -53,7 +52,7 @@ ConsoleTable.Write(items, item => item.Rarity switch
     ConsoleTable.Write(items);
 ```
 
-### 색상 설정
+### Column,Row,Table 색상 설정
 
 ```csharp
     ConsoleTable.TableColor = ConsoleColor.Red; //테이블 색깔을 지정합니다.
@@ -63,6 +62,15 @@ ConsoleTable.Write(items, item => item.Rarity switch
 
 ### 
 ![image](https://user-images.githubusercontent.com/2803110/97785181-c5ce6d00-1be6-11eb-8801-4530b05eea8a.png)
+
+
+### anonymous/tuple을 활용하여 원하는 Property/Member만 출력하기
+```csharp
+ConsoleTable.Write(items.Select(item => (item.Name, item.Rarity)));
+//or
+ConsoleTable.Write(items.Select(item => new { item.Name, item.Rarity }));
+```
+![image](https://user-images.githubusercontent.com/2803110/97873382-e4ee0b80-1d5a-11eb-8dfd-b05caadfcc9e.png)
 
 
 ### 한개의 오브젝트의 Property/Member 정보들을 출력
