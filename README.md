@@ -65,7 +65,7 @@ ConsoleTable.Write(items, item => item.Rarity switch
 ![image](https://user-images.githubusercontent.com/2803110/97785181-c5ce6d00-1be6-11eb-8801-4530b05eea8a.png)
 
 
-### 한개의 오브젝트의 Property/Member 정보들을 
+### 한개의 오브젝트의 Property/Member 정보들을 출력
 
 ```csharp
 var obj = new Item() { Name = "Leoric's Crown", Rarity = Rarity.Normal, Slot = "Helm" };
