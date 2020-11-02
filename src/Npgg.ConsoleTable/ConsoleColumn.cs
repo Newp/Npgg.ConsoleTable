@@ -18,5 +18,16 @@ namespace Npgg
             this.Values = values.ToArray();
             this.Width = Math.Max(name.Length, values.Max(text => ConsoleTable.GetTextWidth(text)));
         }
+
+        public int GetWidth(string value)
+        {
+
+            var len1 = ConsoleTable.GetTextWidth(value);
+            var len2 = value.Length;
+
+            var diff = len1 - len2;
+
+            return this.Width - diff;
+        }
     }
 }

@@ -45,7 +45,10 @@ namespace Example
             ConsoleTable.ColumnColor = ConsoleColor.Cyan;
             ConsoleTable.RowColor = ConsoleColor.White;
 
-            ConsoleTable.Write(items);
+
+            ConsoleTable.WriteSingle(items[0]);
+
+            //ConsoleTable.Write(items);
         }
     }
 }

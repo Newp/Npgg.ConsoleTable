@@ -13,6 +13,41 @@ namespace Npgg
     public static class ConsoleTable
     {
 
+        public static void WriteSingle<T>(T obj)
+        {
+            var properties = typeof(T).GetProperties();
+
+            var members = MemberGetter.GetAssigners<T>()
+                .Values
+                .ToDictionary
+                    (
+                        assigner => assigner.MemberName,
+                        assigner => assigner.GetValue(obj).ToString()
+                    );
+
+            var columns = new ConsoleColumn[]
+            {
+                new ConsoleColumn(0, "Key", members.Keys.ToArray()),
+                new ConsoleColumn(1, "Values", members.Values.ToArray())
+            };
+
+            WriteLine(columns);
+
+            foreach (var member in members)
+            {
+                WriteWord(ConsoleTable.TableColor, 3, cc);
+                WriteWord(ConsoleTable.ColumnColor, columns[0].GetWidth(member.Key), member.Key);
+                WriteWord(ConsoleTable.TableColor, 3, cc);
+                WriteWord(ConsoleTable.RowColor, columns[1].GetWidth(member.Value), member.Value);
+                WriteWord(ConsoleTable.TableColor, 3, cc);
+
+                Console.WriteLine();
+                WriteLine(columns);
+            }
+
+        }
+
+
         public static int GetTextWidth(string value)
         {
             var length = value.ToCharArray().Sum(c => c > 127 ? 2 : 1);
@@ -20,7 +55,7 @@ namespace Npgg
         }
 
         public static void Write<T>(IEnumerable<T> list) => Write(list, item => RowColor);
-
+        
         public static void Write<T>(IEnumerable<T> list, ColorSelector<T> colorSelector)
         {
             var properties = typeof(T).GetProperties();
@@ -48,7 +83,6 @@ namespace Npgg
 
             WriteLine(columns);
         }
-
 
         static readonly string cc = " | ";
 
@@ -89,12 +123,9 @@ namespace Npgg
                 WriteWord(TableColor, 3, cc);
                 var value = textSelector(column);
 
-                var len1 = GetTextWidth(value);
-                var len2 = value.Length;
+                var width = column.GetWidth(value);
 
-                var diff = len1 - len2;
-
-                WriteWord(color, column.Width - diff, value);
+                WriteWord(color, width, value);
             }
             WriteWord(TableColor, 3, cc);
             Console.WriteLine();
