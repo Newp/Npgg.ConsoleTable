@@ -25,6 +25,13 @@ namespace Npgg
                         assigner => assigner.GetValue(obj).ToString()
                     );
 
+            Write(members);
+        }
+
+        public static void Write<K, V>(IDictionary<K, V> dictionary)
+        {
+            var members = dictionary.ToDictionary(kvp => kvp.Key.ToString(), kvp => kvp.Value.ToString());
+
             var columns = new ConsoleColumn[]
             {
                 new ConsoleColumn(0, "Key", members.Keys.ToArray()),
@@ -44,7 +51,6 @@ namespace Npgg
                 Console.WriteLine();
                 WriteLine(columns);
             }
-
         }
 
 

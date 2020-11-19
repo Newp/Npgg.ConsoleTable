@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Npgg;
 
 namespace Example
@@ -31,6 +33,10 @@ namespace Example
                 new Item(){ Name= "WINDFORCE", Rarity = Rarity.Magic, Slot ="양손무기"},
             };
 
+            ConsoleTable.Write(items.Select(item => (item.Name, item.Rarity)));
+            //or
+            ConsoleTable.Write(items.Select(item => new { item.Name, item.Rarity }));
+
             #region ColorByRarity
             ConsoleTable.Write(items, item => item.Rarity switch
             {
@@ -46,9 +52,23 @@ namespace Example
             ConsoleTable.RowColor = ConsoleColor.White;
 
 
-            ConsoleTable.WriteSingle(items[0]);
+            var obj = new Item() { Name = "Leoric's Crown", Rarity = Rarity.Normal, Slot = "Helm" };
+            ConsoleTable.WriteSingle(obj);
 
-            //ConsoleTable.Write(items);
+
+            var dictionary = new Dictionary<string, object>()
+            {
+                { "dictionary",  "convert"},
+                { "to",  "key/value pair"},
+                { "length",  3},
+            };
+
+            ConsoleTable.Write(dictionary);
+
+            ConsoleTable.Write(dictionary, (kvp)=>
+            {
+                return ConsoleColor.Red;
+            });
         }
     }
 }

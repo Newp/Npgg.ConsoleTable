@@ -7,7 +7,7 @@
     <Description>콘솔창에 테이블 형태의 출력을 지원합니다.</Description>
     <Authors>Newp</Authors>
     <Copyright />
-    <Version>1.2.0</Version>
+    <Version>1.3.1</Version>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
   </PropertyGroup>
 
