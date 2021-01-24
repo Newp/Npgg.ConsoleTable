@@ -62,7 +62,9 @@ namespace Npgg
 
         public static void Write<T>(IEnumerable<T> list)
         {
-            if (typeof(T).IsPrimitive)
+
+            var type = typeof(T);
+            if (type.IsPrimitive || type == typeof(string))
             {
                 var converted = list.Select(item => new { value = item });
                 Write(converted, item => RowColor);

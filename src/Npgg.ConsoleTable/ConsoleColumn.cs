@@ -16,7 +16,14 @@ namespace Npgg
             this.Index = index;
             this.Name = name;
             this.Values = values.ToArray();
-            this.Width = Math.Max(name.Length, values.Max(text => ConsoleTable.GetTextWidth(text)));
+
+
+            bool emptyValues = values == null || values.Count() == 0;
+            
+            this.Width = Math.Max(
+                name.Length
+                , emptyValues ? 0 : values.Max(text => ConsoleTable.GetTextWidth(text)));
+            
         }
 
         public int GetWidth(string value)

@@ -148,17 +148,27 @@ namespace Npgg.ConsoleTableTests
             var read = reader.ReadToEnd();
 
             var expect =
-@" +-------+ 
+@"+-------+ 
  | value | 
  +-------+ 
  |     1 | 
  |     2 | 
  |     3 | 
  |     4 | 
- +-------+ 
-";
-            Assert.Equal(expect, read);
+ +-------+";
+            Assert.Contains(expect, read);
 
+        }
+
+
+        [Fact]
+        public void EmptyPrimitiveTest()
+        {
+            var result = Write(() => ConsoleTable.Write(new string[] { }));
+
+            using var reader = new StringReader(result);
+
+            var read = reader.ReadToEnd();
         }
     }
 }
