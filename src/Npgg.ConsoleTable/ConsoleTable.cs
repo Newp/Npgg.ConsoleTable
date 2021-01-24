@@ -60,7 +60,19 @@ namespace Npgg
             return length;
         }
 
-        public static void Write<T>(IEnumerable<T> list) => Write(list, item => RowColor);
+        public static void Write<T>(IEnumerable<T> list)
+        {
+            if (typeof(T).IsPrimitive)
+            {
+                var converted = list.Select(item => new { value = item });
+                Write(converted, item => RowColor);
+            }
+            else
+            {
+                Write(list, item => RowColor);
+            }
+            
+        }
         
         public static void Write<T>(IEnumerable<T> list, ColorSelector<T> colorSelector)
         {

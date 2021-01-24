@@ -117,7 +117,7 @@ namespace Npgg.ConsoleTableTests
             reader.ReadLine();
 
 
-            foreach(var assginer in MemberGetter.GetAssigners(typeof(Sample)).Values)
+            foreach (var assginer in MemberGetter.GetAssigners(typeof(Sample)).Values)
             {
                 var text = reader.ReadLine();
 
@@ -135,7 +135,30 @@ namespace Npgg.ConsoleTableTests
 
                 reader.ReadLine();
             }
-            
+        }
+
+
+        [Fact]
+        public void SingleWritePrimitiveTest()
+        {
+            var result = Write(() => ConsoleTable.Write(new[] { 1, 2, 3, 4 }));
+
+            using var reader = new StringReader(result);
+
+            var read = reader.ReadToEnd();
+
+            var expect =
+@" +-------+ 
+ | value | 
+ +-------+ 
+ |     1 | 
+ |     2 | 
+ |     3 | 
+ |     4 | 
+ +-------+ 
+";
+            Assert.Equal(expect, read);
+
         }
     }
 }
