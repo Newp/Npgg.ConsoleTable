@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Npgg.ConsoleTable", "Npgg.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Npgg.ConsoleTable.Tests", "Npgg.ConsoleTable.Tests\Npgg.ConsoleTable.Tests.csproj", "{D9840424-5D1B-4081-BCEA-A61BF63AD6F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example", "Example\Example.csproj", "{CE908647-FEDD-45A0-AF58-DF8C96FA0CF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example", "Example\Example.csproj", "{CE908647-FEDD-45A0-AF58-DF8C96FA0CF5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github action", "github action", "{98326678-3E87-4B57-B83B-457E240D4913}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\nuget-publish.yml = ..\.github\workflows\nuget-publish.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
