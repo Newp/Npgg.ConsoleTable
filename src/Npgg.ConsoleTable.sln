@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github action", "github act
 		..\.github\workflows\nuget-publish.yml = ..\.github\workflows\nuget-publish.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarChartExample", "BarChartExample\BarChartExample.csproj", "{C310EFB4-BF3F-43E8-9906-C317368B0252}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{CE908647-FEDD-45A0-AF58-DF8C96FA0CF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE908647-FEDD-45A0-AF58-DF8C96FA0CF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE908647-FEDD-45A0-AF58-DF8C96FA0CF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C310EFB4-BF3F-43E8-9906-C317368B0252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C310EFB4-BF3F-43E8-9906-C317368B0252}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C310EFB4-BF3F-43E8-9906-C317368B0252}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C310EFB4-BF3F-43E8-9906-C317368B0252}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
