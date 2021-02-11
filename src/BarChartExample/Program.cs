@@ -25,8 +25,7 @@ namespace BarChartExample
                     Value = 1500,
                 }
             };
-
-            ConsoleBarChart.Write(dic);
+            ConsoleBarChart.Write(dic, 50);
         }
     }
 }

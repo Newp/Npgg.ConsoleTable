@@ -13,16 +13,14 @@ namespace Npgg
     }
     public static class ConsoleBarChart
     {
-        public static void Write(List<ConsoleBarChartOption> list)
+        public static void Write(List<ConsoleBarChartOption> list, int barWidth=50)
         {
             var columnLength = list.Max(text => text.Name.Length);
             var maxValue = list.Max(item=>item.Value);
 
             foreach(var item in list)
             {
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.Gray;
-
+                Console.ResetColor();
 
                 string format = $" {{0, {columnLength}}} ";
 
@@ -30,17 +28,15 @@ namespace Npgg
 
                 Console.BackgroundColor = item.BarColor;
 
-                var length = (item.Value / maxValue ) * 50;
+                var length = (item.Value / maxValue ) * barWidth;
                 Console.Write(string.Empty.PadLeft((int)length));
 
-                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ResetColor();
                 Console.ForegroundColor = item.BarColor;
-                Console.Write(" " + item.Value);
-
-                Console.Write('\n');
-
-
+                Console.Write($" {item.Value}\n");
             }
+
+            Console.ResetColor();
         }
     }
 }
