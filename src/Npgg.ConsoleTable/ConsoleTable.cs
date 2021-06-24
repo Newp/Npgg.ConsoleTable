@@ -56,6 +56,9 @@ namespace Npgg
 
         public static int GetTextWidth(string value)
         {
+            if (value == null)
+                return 0;
+
             var length = value.ToCharArray().Sum(c => c > 127 ? 2 : 1);
             return length;
         }
@@ -83,7 +86,7 @@ namespace Npgg
             var assigners = MemberGetter.GetAssigners<T>();
 
             var columns = assigners.Values.Select((assigner, i) => 
-                new ConsoleColumn(i, assigner.MemberName, list.Select(item => assigner.GetValue(item).ToString()))
+                new ConsoleColumn(i, assigner.MemberName, list.Select(item => assigner.GetValue(item)?.ToString()))
             );
 
             var totalWidth = columns.Sum(column => column.Width);

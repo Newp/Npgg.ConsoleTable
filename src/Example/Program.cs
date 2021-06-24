@@ -29,7 +29,7 @@ namespace Example
             {
                 new Item(){ Name= "Leoric's Crown", Rarity = Rarity.Normal, Slot ="Helm"},
                 new Item(){ Name= "Thunderfury", Rarity = Rarity.Unique, Slot ="One Handed Weapon"},
-                new Item(){ Name= "할배검 the grandfather", Rarity = Rarity.Legendary, Slot ="Two Handed Weapon"},
+                new Item(){ Name= null, Rarity = Rarity.Legendary, Slot ="Two Handed Weapon"},
                 new Item(){ Name= "WINDFORCE", Rarity = Rarity.Magic, Slot ="양손무기"},
             };
 

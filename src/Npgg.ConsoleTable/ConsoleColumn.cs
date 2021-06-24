@@ -30,7 +30,7 @@ namespace Npgg
         {
 
             var len1 = ConsoleTable.GetTextWidth(value);
-            var len2 = value.Length;
+            var len2 = value?.Length ?? 0;
 
             var diff = len1 - len2;
 
