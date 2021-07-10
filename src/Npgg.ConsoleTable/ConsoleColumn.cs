@@ -28,9 +28,11 @@ namespace Npgg
 
         public int GetWidth(string value)
         {
+            if (string.IsNullOrEmpty(value))
+                return 0;
 
             var len1 = ConsoleTable.GetTextWidth(value);
-            var len2 = value?.Length ?? 0;
+            var len2 = value.Length;
 
             var diff = len1 - len2;
 

@@ -56,7 +56,7 @@ namespace Npgg
 
         public static int GetTextWidth(string value)
         {
-            if (value == null)
+            if (string.IsNullOrEmpty(value))
                 return 0;
 
             var length = value.ToCharArray().Sum(c => c > 127 ? 2 : 1);
